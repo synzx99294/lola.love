@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,36 +10,31 @@
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root {
-      --pink: #ec4899;
-      --indigo: #6366f1;
-    }
-    body { font-family: 'Quicksand', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; }
+    :root { --pink:#ec4899; --indigo:#6366f1; }
+    body { font-family:'Quicksand',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif; }
     /* Starfield */
-    .starfield::before, .starfield::after {
-      content: "";
-      position: absolute; inset: 0;
+    .starfield::before,.starfield::after{
+      content:""; position:absolute; inset:0;
       background-image:
         radial-gradient(circle at 20% 20%, rgba(99,102,241,0.15), transparent 40%),
         radial-gradient(circle at 80% 60%, rgba(56,189,248,0.12), transparent 35%);
       pointer-events:none;
     }
-    .star { position:absolute; width:2px; height:2px; background:#fff; border-radius:999px; opacity:.6; animation: twinkle var(--dur,3s) infinite ease-in-out; }
-    @keyframes twinkle { 0%,100%{opacity:.2} 50%{opacity:1} }
+    .star{position:absolute;width:2px;height:2px;background:#fff;border-radius:999px;opacity:.6;animation:twinkle var(--dur,3s) infinite ease-in-out}
+    @keyframes twinkle{0%,100%{opacity:.2}50%{opacity:1}}
     /* Floating hearts */
-    .heart { position:absolute; color:rgba(255,255,255,.8); animation: floatUp linear infinite; filter: drop-shadow(0 2px 6px rgba(255,192,203,.3)); }
-    @keyframes floatUp { from{ transform: translateY(0); opacity:0 } 10%{opacity:1} to{ transform: translateY(-110vh); opacity:0 } }
+    .heart{position:absolute;color:rgba(255,255,255,.85);animation:floatUp linear infinite;filter:drop-shadow(0 2px 6px rgba(255,192,203,.35))}
+    @keyframes floatUp{from{transform:translateY(0);opacity:0}10%{opacity:1}to{transform:translateY(-110vh);opacity:0}}
     /* Kawaii emojis */
-    .emoji { position:absolute; animation: bobbing ease-in-out infinite; opacity:.8; }
-    @keyframes bobbing { 0%{ transform: translateY(6px) } 50%{ transform: translateY(-6px) } 100%{ transform: translateY(6px) } }
+    .emoji{position:absolute;animation:bobbing ease-in-out infinite;opacity:.9}
+    @keyframes bobbing{0%{transform:translateY(6px)}50%{transform:translateY(-6px)}100%{transform:translateY(6px)}}
     /* Cute button shimmer */
     .shimmer::after{
-      content:""; position:absolute; inset:0; transform: translateX(-100%);
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent);
-      animation: shine 2s linear infinite;
-      border-radius: inherit;
+      content:""; position:absolute; inset:0; transform:translateX(-100%);
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
+      animation:shine 2s linear infinite; border-radius:inherit;
     }
-    @keyframes shine{ to{ transform: translateX(100%);} }
+    @keyframes shine{to{transform:translateX(100%)}}
   </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-indigo-950 via-slate-900 to-black text-slate-100 selection:bg-pink-300/40 selection:text-black relative overflow-x-hidden">
@@ -54,34 +49,43 @@
     <h1 class="text-4xl md:text-6xl font-extrabold leading-tight [text-wrap:balance]">
       Bhanu <span class="align-middle">💖</span> Lola
     </h1>
-    <p class="mt-3 text-sm md:text-base opacity-80">From India to Venezuela • Together since <span id="metDate"></span></p>
+
+    <!-- Language toggle -->
+    <div class="mt-2 flex justify-center gap-2">
+      <button id="lang-es" class="rounded-full bg-white/10 px-3 py-1 text-xs ring-1 ring-white/20 hover:bg-white/20">🇻🇪 Español</button>
+      <button id="lang-hi" class="rounded-full bg-white/10 px-3 py-1 text-xs ring-1 ring-white/20 hover:bg-white/20">🇮🇳 Hinglish</button>
+    </div>
+
+    <p id="tagline" class="mt-3 text-sm md:text-base opacity-80">—</p>
 
     <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <!-- TIME SHARED -->
       <div class="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl backdrop-blur">
         <div class="mb-3 flex items-center gap-2">
           <div class="grid h-10 w-10 place-items-center rounded-2xl bg-pink-500/20 text-pink-200">🕒</div>
-          <h2 class="text-lg font-bold">Time We've Shared</h2>
+          <h2 id="timeSharedTitle" class="text-lg font-bold">—</h2>
         </div>
         <div class="grid grid-cols-2 items-center gap-2 rounded-2xl bg-white/5 px-4 py-2">
-          <span class="opacity-70">Years</span><span id="years" class="text-right text-lg font-semibold">—</span>
+          <span id="yearsLabel" class="opacity-70">Years</span><span id="years" class="text-right text-lg font-semibold">—</span>
         </div>
         <div class="grid grid-cols-2 items-center gap-2 rounded-2xl bg-white/5 px-4 py-2 mt-2">
-          <span class="opacity-70">Months</span><span id="months" class="text-right text-lg font-semibold">—</span>
+          <span id="monthsLabel" class="opacity-70">Months</span><span id="months" class="text-right text-lg font-semibold">—</span>
         </div>
         <div class="grid grid-cols-2 items-center gap-2 rounded-2xl bg-white/5 px-4 py-2 mt-2">
-          <span class="opacity-70">Days</span><span id="days" class="text-right text-lg font-semibold">—</span>
+          <span id="daysLabel" class="opacity-70">Days</span><span id="days" class="text-right text-lg font-semibold">—</span>
         </div>
         <div class="mt-2 grid grid-cols-3 gap-2">
-          <div class="rounded-xl bg-white/5 px-3 py-2 text-center"><div id="hours" class="text-base font-bold">—</div><div class="text-[10px] uppercase tracking-wide opacity-60">Hours</div></div>
-          <div class="rounded-xl bg-white/5 px-3 py-2 text-center"><div id="minutes" class="text-base font-bold">—</div><div class="text-[10px] uppercase tracking-wide opacity-60">Minutes</div></div>
-          <div class="rounded-xl bg-white/5 px-3 py-2 text-center"><div id="seconds" class="text-base font-bold">—</div><div class="text-[10px] uppercase tracking-wide opacity-60">Seconds</div></div>
+          <div class="rounded-xl bg-white/5 px-3 py-2 text-center"><div id="hours" class="text-base font-bold">—</div><div id="hoursLabel" class="text-[10px] uppercase tracking-wide opacity-60">Hours</div></div>
+          <div class="rounded-xl bg-white/5 px-3 py-2 text-center"><div id="minutes" class="text-base font-bold">—</div><div id="minutesLabel" class="text-[10px] uppercase tracking-wide opacity-60">Minutes</div></div>
+          <div class="rounded-xl bg-white/5 px-3 py-2 text-center"><div id="seconds" class="text-base font-bold">—</div><div id="secondsLabel" class="text-[10px] uppercase tracking-wide opacity-60">Seconds</div></div>
         </div>
       </div>
 
+      <!-- NEXT MONTHSARY -->
       <div class="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl backdrop-blur">
         <div class="mb-3 flex items-center gap-2">
           <div class="grid h-10 w-10 place-items-center rounded-2xl bg-pink-500/20 text-pink-200">📅</div>
-          <h2 class="text-lg font-bold">Next Monthsary</h2>
+          <h2 id="nextMonthsaryTitle" class="text-lg font-bold">—</h2>
         </div>
         <p class="text-lg font-semibold" id="nextDate">—</p>
         <div class="mt-3 grid grid-cols-3 gap-2">
@@ -89,14 +93,14 @@
           <div class="rounded-xl bg-white/5 px-3 py-2 text-center"><div id="hLeft" class="text-base font-bold">—</div><div class="text-[10px] uppercase tracking-wide opacity-60">Hours</div></div>
           <div class="rounded-xl bg-white/5 px-3 py-2 text-center"><div id="mLeft" class="text-base font-bold">—</div><div class="text-[10px] uppercase tracking-wide opacity-60">Minutes</div></div>
         </div>
-        <button id="celebrate" class="relative shimmer mt-4 inline-flex items-center gap-2 rounded-2xl bg-pink-500 px-5 py-2.5 font-semibold text-white shadow-lg shadow-pink-600/20 ring-2 ring-pink-300/60 transition active:scale-95">💖 Celebrate</button>
+        <button id="celebrate" class="relative shimmer mt-4 inline-flex items-center gap-2 rounded-2xl bg-pink-500 px-5 py-2.5 text-base font-semibold text-white shadow-lg shadow-pink-600/20 ring-2 ring-pink-300/60 transition active:scale-95">💖 Celebrate</button>
       </div>
     </div>
   </header>
 
   <!-- CLOCKS -->
   <section class="mx-auto mt-12 max-w-5xl px-6">
-    <div class="mb-3 inline-flex items-center gap-1 rounded-full border border-pink-300/60 bg-white/10 px-3 py-1 text-xs font-medium text-pink-200 shadow-sm backdrop-blur">✨ Long distance, short hearts</div>
+    <div id="longDistanceBadge" class="mb-3 inline-flex items-center gap-1 rounded-full border border-pink-300/60 bg-white/10 px-3 py-1 text-xs font-medium text-pink-200 shadow-sm backdrop-blur">✨ Long distance, short hearts</div>
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div class="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl backdrop-blur">
         <div class="mb-2 flex items-center justify-between">
@@ -129,7 +133,7 @@
 
   <!-- CUTE QUOTES -->
   <section class="mx-auto mt-10 max-w-3xl px-6">
-    <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 text-center" style="font-family:'Dancing Script', cursive">
+    <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 text-center" style="font-family:'Dancing Script',cursive">
       <p id="quote" class="text-xl">You + Me = ♡</p>
     </div>
   </section>
@@ -137,27 +141,47 @@
   <!-- LOVE NOTE -->
   <section class="mx-auto mt-12 max-w-3xl px-6">
     <div class="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl backdrop-blur">
-      <div class="flex items-center gap-2"><div class="text-pink-300">✉️</div><h3 class="text-xl font-bold">Ek chhota sa love note 💌</h3></div>
-      <p class="mt-3 leading-relaxed opacity-90">
-        Hey Lola, har din phone pe hansi, chhoti chhoti baatein, aur woh goodnight texts — sab kuch special banata hai.
-        04 June 2025 ko jo milan shuru hua, uski har monthsary hum celebrate karenge. Distance sirf kilometers mein hota hai,
-        dil toh hamesha paas hote hain. ❤️ — Bhanu
-      </p>
+      <div class="flex items-center gap-2"><div class="text-pink-300">✉️</div><h3 id="loveNoteTitle" class="text-xl font-bold">—</h3></div>
+      <p id="loveNoteBody" class="mt-3 leading-relaxed opacity-90">—</p>
     </div>
   </section>
 
-  <!-- PLAYLIST (links only) -->
+  <!-- PLAYLIST (Embeds + links) -->
   <section class="mx-auto mt-12 max-w-3xl px-6 pb-24">
     <div class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl backdrop-blur">
-      <div class="flex items-center gap-2"><div class="text-pink-300">🎵</div><h3 class="text-xl font-bold">Hamari Playlist</h3></div>
-      <ul class="mt-3 space-y-2">
-        <li class="flex items-center justify-between gap-3 rounded-xl bg-white/10 px-3 py-2 text-sm">
-          <span>♪ Our Song #1</span><a target="_blank" rel="noreferrer" href="https://open.spotify.com/" class="rounded-full bg-pink-500 px-3 py-1 font-medium text-white shadow hover:opacity-90">Play</a>
-        </li>
-        <li class="flex items-center justify-between gap-3 rounded-xl bg-white/10 px-3 py-2 text-sm">
-          <span>♪ Our Song #2</span><a target="_blank" rel="noreferrer" href="https://music.youtube.com/" class="rounded-full bg-pink-500 px-3 py-1 font-medium text-white shadow hover:opacity-90">Play</a>
-        </li>
-      </ul>
+      <div class="flex items-center gap-2"><div class="text-pink-300">🎵</div><h3 id="playlistTitle" class="text-xl font-bold">—</h3></div>
+
+      <!-- SPOTIFY EMBEDS: replace IDs/URLs below -->
+      <div class="space-y-3 mt-4">
+        <!-- Track -->
+        <iframe style="border-radius:12px"
+          src="https://open.spotify.com/embed/track/5WXXXXYOURTRACKID"
+          width="100%" height="80" frameborder="0"
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>
+
+        <!-- Playlist -->
+        <iframe style="border-radius:12px"
+          src="https://open.spotify.com/embed/playlist/37i9dQZF1DXYOURPLAYLISTID"
+          width="100%" height="352" frameborder="0"
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>
+      </div>
+
+      <!-- YOUTUBE (optional) -->
+      <!--
+      <div class="mt-4 aspect-video">
+        <iframe class="w-full h-full rounded-2xl"
+          src="https://www.youtube.com/embed/VIDEO_ID"
+          title="YouTube player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      -->
+
+      <!-- LOCAL MP3 (optional) -->
+      <!--
+      <audio controls class="w-full mt-3 rounded-xl">
+        <source src="music/song.mp3" type="audio/mpeg" />
+      </audio>
+      -->
     </div>
   </section>
 
@@ -166,9 +190,38 @@
   </footer>
 
 <script>
+/* ====== CONFIG ====== */
 const MET_AT = new Date(Date.UTC(2025, 5, 4, 0, 0, 0)); // 04 June 2025 (UTC)
-document.getElementById('metDate').textContent = MET_AT.toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric' });
 
+/* ====== I18N (Venezuelan Spanish + Hinglish) ====== */
+const L10N = {
+  hi: {
+    tagline: "India se Venezuela • Since {date}",
+    timeShared: "Time We've Shared",
+    nextMonthsary: "Next Monthsary",
+    longDistance: "✨ Long distance, short hearts",
+    loveNoteTitle: "Ek chhota sa love note 💌",
+    loveNoteBody: "Hey Lola, har din phone pe hansi, chhoti chhoti baatein, aur woh goodnight texts — sab kuch special banata hai. 04 June 2025 ko jo milan shuru hua, uski har monthsary hum celebrate karenge. Distance sirf kilometers mein hota hai, dil toh hamesha paas hote hain. ❤️ — Bhanu",
+    playlist: "Hamari Playlist",
+    labels: { years:"Years", months:"Months", days:"Days", hours:"Hours", minutes:"Minutes", seconds:"Seconds" },
+    quotes: ["You + Me = ♡","Across oceans, same moon.","I choose you, every day.","Tu hi toh ho meri smile ka reason ✨","Besitos hasta Caracas 💌"]
+  },
+  es: {
+    tagline: "De India a Venezuela • Desde {date}",
+    timeShared: "Tiempo que llevamos juntitos",
+    nextMonthsary: "Próximo mesiversario",
+    longDistance: "✨ Lejos en km, cerquita del cora",
+    loveNoteTitle: "Una notita de amor 💌",
+    loveNoteBody: "Hola Lola, cada llamadita, cada risita y esos mensajitos de buenas noches hacen todo especial. Desde el 04 de junio de 2025 celebramos cada mesiversario. La distancia solo está en el mapa; nuestros corazones siempre junticos. ❤️ — Bhanu",
+    playlist: "Nuestra Playlist",
+    labels: { years:"Años", months:"Meses", days:"Días", hours:"Horas", minutes:"Min", seconds:"Seg" },
+    quotes: ["Tú + Yo = ♡","A través del mar, la misma luna.","Te elijo todos los días.","Eres mi sonrisa, mi amorcito ✨","Besitos hasta Caracas 💌"]
+  }
+};
+let CURRENT_LANG = 'es'; // default Spanish for Lola
+
+/* ====== Helpers ====== */
+document.getElementById('metDate'); // just to ensure DOM created
 function isLeap(y){return (y%4===0 && y%100!==0) || (y%400===0)}
 function diffParts(from, to){
   let d1 = new Date(from), d2 = new Date(to);
@@ -198,51 +251,119 @@ function fmtTz(date, tz){
   const f = new Intl.DateTimeFormat('en-GB',{timeZone:tz, hour12:true, hour:'2-digit', minute:'2-digit', second:'2-digit', weekday:'short'}).format(date);
   const [weekday, time] = f.split(', '); return {weekday, time};
 }
+
+/* ====== Language Wiring ====== */
+function setLanguage(lang){
+  CURRENT_LANG = lang;
+  const t = L10N[lang];
+  const dateStr = MET_AT.toLocaleDateString(lang==='es'?'es-VE':'en-GB',{day:'2-digit',month:'long',year:'numeric'});
+
+  document.getElementById('tagline').textContent = t.tagline.replace('{date}', dateStr);
+  document.getElementById('timeSharedTitle').textContent = t.timeShared;
+  document.getElementById('nextMonthsaryTitle').textContent = t.nextMonthsary;
+  document.getElementById('longDistanceBadge').textContent = t.longDistance;
+
+  document.getElementById('loveNoteTitle').textContent = t.loveNoteTitle;
+  document.getElementById('loveNoteBody').textContent  = t.loveNoteBody;
+  document.getElementById('playlistTitle').textContent = t.playlist;
+
+  document.getElementById('yearsLabel').textContent   = t.labels.years;
+  document.getElementById('monthsLabel').textContent  = t.labels.months;
+  document.getElementById('daysLabel').textContent    = t.labels.days;
+  document.getElementById('hoursLabel').textContent   = t.labels.hours;
+  document.getElementById('minutesLabel').textContent = t.labels.minutes;
+  document.getElementById('secondsLabel').textContent = t.labels.seconds;
+
+  window.__QUOTES__ = t.quotes; // for rotator
+}
+document.getElementById('lang-hi').addEventListener('click', ()=> setLanguage('hi'));
+document.getElementById('lang-es').addEventListener('click', ()=> setLanguage('es'));
+
+/* ====== Live Counters & Clocks ====== */
 function update(){
   const now = new Date();
   const t = diffParts(MET_AT, now);
   ["years","months","days","hours","minutes","seconds"].forEach(k => {
     document.getElementById(k).textContent = t[k];
   });
+
   const nx = nextMonthsary(MET_AT, now);
-  document.getElementById('nextDate').textContent = nx.toLocaleDateString('en-GB',{ day:'2-digit', month:'long', year:'numeric'});
+  document.getElementById('nextDate').textContent =
+    nx.toLocaleDateString(CURRENT_LANG==='es'?'es-VE':'en-GB',{day:'2-digit',month:'long',year:'numeric'});
   const left = diffParts(now, nx);
   document.getElementById('dLeft').textContent = left.days + left.months*30 + left.years*365;
   document.getElementById('hLeft').textContent = left.hours;
   document.getElementById('mLeft').textContent = left.minutes;
 
-  const i = fmtTz(now, 'Asia/Kolkata'); document.getElementById('timeIN').textContent = i.time; document.getElementById('weekdayIN').textContent = i.weekday;
-  const v = fmtTz(now, 'America/Caracas'); document.getElementById('timeVE').textContent = v.time; document.getElementById('weekdayVE').textContent = v.weekday;
+  const i = fmtTz(now, 'Asia/Kolkata');    document.getElementById('timeIN').textContent = i.time;    document.getElementById('weekdayIN').textContent = i.weekday;
+  const v = fmtTz(now, 'America/Caracas'); document.getElementById('timeVE').textContent = v.time;    document.getElementById('weekdayVE').textContent = v.weekday;
 }
 setInterval(update, 1000); update();
 
-// Stars
+/* ====== Background: Stars / Emojis / Hearts (mobile-optimized) ====== */
 (function makeStars(){
   const wrap = document.getElementById('stars');
-  for(let i=0;i<160;i++){ const s=document.createElement('span'); s.className='star'; s.style.left=Math.random()*100+'%'; s.style.top=Math.random()*100+'%'; s.style.setProperty('--dur',(2+Math.random()*3)+'s'); wrap.appendChild(s); }
+  const COUNT = window.innerWidth < 480 ? 100 : 160;
+  for(let i=0;i<COUNT;i++){
+    const s=document.createElement('span'); s.className='star';
+    s.style.left=Math.random()*100+'%'; s.style.top=Math.random()*100+'%';
+    s.style.setProperty('--dur',(2+Math.random()*3)+'s');
+    wrap.appendChild(s);
+  }
 })();
-// Emojis
 (function makeEmojis(){
-  const wrap = document.getElementById('emojis'); const list = ['💖','💫','✨','💌','🌸','🧸','🍓','🎀'];
-  for(let i=0;i<18;i++){ const e=document.createElement('span'); e.className='emoji text-xl'; e.textContent=list[i%list.length]; e.style.left=Math.random()*100+'%'; e.style.top=Math.random()*100+'%'; e.style.animationDuration=(8+Math.random()*6)+'s'; wrap.appendChild(e); }
+  const wrap = document.getElementById('emojis');
+  const list = ['💖','💫','✨','💌','🌸','🧸','🍓','🎀'];
+  const COUNT = window.innerWidth < 480 ? 10 : 18;
+  for(let i=0;i<COUNT;i++){
+    const e=document.createElement('span');
+    e.className='emoji text-xl'; e.textContent=list[i%list.length];
+    e.style.left=Math.random()*100+'%'; e.style.top=Math.random()*100+'%';
+    e.style.animationDuration=(8+Math.random()*6)+'s';
+    wrap.appendChild(e);
+  }
 })();
-// Hearts
 (function makeHearts(){
   const wrap = document.getElementById('hearts');
-  for(let i=0;i<18;i++){ const h=document.createElement('div'); h.className='heart'; h.textContent='❤'; h.style.left=Math.random()*100+'%'; h.style.bottom='-40px'; h.style.fontSize=(14+Math.random()*20)+'px'; h.style.animationDuration=(8+Math.random()*8)+'s'; h.style.animationDelay=(Math.random()*5)+'s'; wrap.appendChild(h); }
-})();
-// Celebrate
-document.getElementById('celebrate').addEventListener('click', ()=>{
-  const wrap = document.getElementById('hearts');
-  for(let i=0;i<24;i++){ const h=document.createElement('div'); h.textContent='💖'; h.style.position='absolute'; h.style.left=(50+ (Math.random()*40-20))+'%'; h.style.top='20%'; h.style.fontSize=(16+Math.random()*18)+'px'; h.style.animation='floatUp 1.4s ease-out forwards'; wrap.appendChild(h); setTimeout(()=>wrap.removeChild(h), 1600); }
-});
-// Quotes
-(function quotes(){
-  const qs = ['You + Me = ♡','Across oceans, same moon.','I choose you, every day.','Tu hi toh ho meri smile ka reason ✨','Besitos hasta Caracas 💌'];
-  const p = document.getElementById('quote'); let i=0; setInterval(()=>{ i=(i+1)%qs.length; p.textContent=qs[i]; }, 3000);
+  const COUNT = window.innerWidth < 480 ? 10 : 18;
+  for(let i=0;i<COUNT;i++){
+    const h=document.createElement('div'); h.className='heart'; h.textContent='❤';
+    h.style.left=Math.random()*100+'%'; h.style.bottom='-40px';
+    h.style.fontSize=(14+Math.random()*20)+'px';
+    h.style.animationDuration=(8+Math.random()*8)+'s';
+    h.style.animationDelay=(Math.random()*5)+'s';
+    wrap.appendChild(h);
+  }
 })();
 
-// Self tests (console)
+/* Celebrate burst */
+document.getElementById('celebrate').addEventListener('click', ()=>{
+  const wrap = document.getElementById('hearts');
+  const burst = window.innerWidth < 480 ? 16 : 24;
+  for(let i=0;i<burst;i++){
+    const h=document.createElement('div'); h.textContent='💖';
+    h.style.position='absolute';
+    h.style.left=(50+(Math.random()*40-20))+'%';
+    h.style.top='20%'; h.style.fontSize=(16+Math.random()*18)+'px';
+    h.style.animation='floatUp 1.4s ease-out forwards';
+    wrap.appendChild(h); setTimeout(()=>wrap.removeChild(h),1600);
+  }
+});
+
+/* Quotes (use L10N) */
+(function quotes(){
+  window.__QUOTES__ = L10N[CURRENT_LANG].quotes;
+  const p = document.getElementById('quote'); let i=0;
+  setInterval(()=>{
+    const arr = window.__QUOTES__ || L10N[CURRENT_LANG].quotes;
+    i=(i+1)%arr.length; p.textContent=arr[i];
+  }, 3000);
+})();
+
+/* Initialize default language (Spanish for Lola) */
+setLanguage('es');
+
+/* ====== Self-tests (console only) ====== */
 (function selfTests(){
   const zero = diffParts(new Date(0), new Date(0));
   console.assert(zero.years===0 && zero.months===0 && zero.days===0, 'diffParts zero failed');
