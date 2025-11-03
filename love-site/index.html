@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bhanu ♥ Lola — Long Distance Love</title>
+  <meta name="description" content="Starry-night kawaii long-distance love page for Bhanu & Lola." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --pink: #ec4899;
+      --indigo: #6366f1;
+    }
+    body { font-family: 'Quicksand', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif; }
+    /* Starfield */
+    .starfield::before, .starfield::after {
+      content: "";
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(99,102,241,0.15), transparent 40%),
+        radial-gradient(circle at 80% 60%, rgba(56,189,248,0.12), transparent 35%);
+      pointer-events:none;
+    }
+    .star { position:absolute; width:2px; height:2px; background:#fff; border-radius:999px; opacity:.6; animation: twinkle var(--dur,3s) infinite ease-in-out; }
+    @keyframes twinkle { 0%,100%{opacity:.2} 50%{opacity:1} }
+    /* Floating hearts */
+    .heart { position:absolute; color:rgba(255,255,255,.8); animation: floatUp linear infinite; filter: drop-shadow(0 2px 6px rgba(255,192,203,.3)); }
+    @keyframes floatUp { from{ transform: translateY(0); opacity:0 } 10%{opacity:1} to{ transform: translateY(-110vh); opacity:0 } }
+    /* Kawaii emojis */
+    .emoji { position:absolute; animation: bobbing ease-in-out infinite; opacity:.8; }
+    @keyframes bobbing { 0%{ transform: translateY(6px) } 50%{ transform: translateY(-6px) } 100%{ transform: translateY(6px) } }
+    /* Cute button shimmer */
+    .shimmer::after{
+      content:""; position:absolute; inset:0; transform: translateX(-100%);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent);
+      animation: shine 2s linear infinite;
+      border-radius: inherit;
+    }
+    @keyframes shine{ to{ transform: translateX(100%);} }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-indigo-950 via-slate-900 to-black text-slate-100 selection:bg-pink-300/40 selection:text-black relative overflow-x-hidden">
+  <!-- Background layers -->
+  <div class="starfield pointer-events-none absolute inset-0 -z-10"></div>
+  <div id="stars" class="pointer-events-none absolute inset-0 -z-10"></div>
+  <div id="emojis" class="pointer-events-none absolute inset-0"></div>
+  <div id="hearts" class="pointer-events-none absolute inset-0"></div>
+
+  <!-- HERO -->
+  <header class="relative mx-auto max-w-5xl px-6 pt-20 text-center">
+    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight [text-wrap:balance]">
+      Bhanu <span class="align-middle">💖</span> Lola
+    </h1>
+    <p class="mt-3 text-sm md:text-base opacity-80">From India to Venezuela • Together since <span id="metDate"></span></p>
+
+    <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl backdrop-blur">
+        <div class="mb-3 flex items-center gap-2">
+          <div class="grid h-10 w-10 place-items-center rounded-2xl bg-pink-500/20 text-pink-200">🕒</div>
+          <h2 class="text-lg font-bold">Time We've Shared</h2>
+        </div>
+        <div class="grid grid-cols-2 items-center gap-2 rounded-2xl bg-white/5 px-4 py-2">
+          <span class="opacity-70">Years</span><span id="years" class="text-right text-lg font-semibold">—</span>
+        </div>
+        <div class="grid grid-cols-2 items-center gap-2 rounded-2xl bg-white/5 px-4 py-2 mt-2">
+          <span class="opacity-70">Months</span><span id="months" class="text-right text-lg font-semibold">—</span>
+        </div>
+        <div class="grid grid-cols-2 items-center gap-2 rounded-2xl bg-white/5 px-4 py-2 mt-2">
+          <span class="opacity-70">Days</span><span id="days" class="text-right text-lg font-semibold">—</span>
+        </div>
+        <div class="mt-2 grid grid-cols-3 gap-2">
+          <div class="rounded-xl bg-white/5 px-3 py-2 text-center"><div id="hours" class="text-base font-bold">—</div><div class="text-[10px] uppercase tracking-wide opacity-60">Hours</div></div>
+          <div class="rounded-xl bg-white/5 px-3 py-2 text-center"><div id="minutes" class="text-base font-bold">—</div><div class="text-[10px] uppercase tracking-wide opacity-60">Minutes</div></div>
+          <div class="rounded-xl bg-white/5 px-3 py-2 text-center"><div id="seconds" class="text-base font-bold">—</div><div class="text-[10px] uppercase tracking-wide opacity-60">Seconds</div></div>
+        </div>
+      </div>
+
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl backdrop-blur">
+        <div class="mb-3 flex items-center gap-2">
+          <div class="grid h-10 w-10 place-items-center rounded-2xl bg-pink-500/20 text-pink-200">📅</div>
+          <h2 class="text-lg font-bold">Next Monthsary</h2>
+        </div>
+        <p class="text-lg font-semibold" id="nextDate">—</p>
+        <div class="mt-3 grid grid-cols-3 gap-2">
+          <div class="rounded-xl bg-white/5 px-3 py-2 text-center"><div id="dLeft" class="text-base font-bold">—</div><div class="text-[10px] uppercase tracking-wide opacity-60">Days</div></div>
+          <div class="rounded-xl bg-white/5 px-3 py-2 text-center"><div id="hLeft" class="text-base font-bold">—</div><div class="text-[10px] uppercase tracking-wide opacity-60">Hours</div></div>
+          <div class="rounded-xl bg-white/5 px-3 py-2 text-center"><div id="mLeft" class="text-base font-bold">—</div><div class="text-[10px] uppercase tracking-wide opacity-60">Minutes</div></div>
+        </div>
+        <button id="celebrate" class="relative shimmer mt-4 inline-flex items-center gap-2 rounded-2xl bg-pink-500 px-5 py-2.5 font-semibold text-white shadow-lg shadow-pink-600/20 ring-2 ring-pink-300/60 transition active:scale-95">💖 Celebrate</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CLOCKS -->
+  <section class="mx-auto mt-12 max-w-5xl px-6">
+    <div class="mb-3 inline-flex items-center gap-1 rounded-full border border-pink-300/60 bg-white/10 px-3 py-1 text-xs font-medium text-pink-200 shadow-sm backdrop-blur">✨ Long distance, short hearts</div>
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl backdrop-blur">
+        <div class="mb-2 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl leading-none">🇮🇳</span>
+            <div><div class="text-sm font-semibold">New Delhi</div><div class="text-xs opacity-60">India</div></div>
+          </div>
+          <div class="text-pink-300">📍</div>
+        </div>
+        <div class="flex items-baseline justify-between">
+          <div id="timeIN" class="text-2xl font-bold">—</div>
+          <div id="weekdayIN" class="text-xs opacity-60">—</div>
+        </div>
+      </div>
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl backdrop-blur">
+        <div class="mb-2 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl leading-none">🇻🇪</span>
+            <div><div class="text-sm font-semibold">Caracas</div><div class="text-xs opacity-60">Venezuela</div></div>
+          </div>
+          <div class="text-pink-300">📍</div>
+        </div>
+        <div class="flex items-baseline justify-between">
+          <div id="timeVE" class="text-2xl font-bold">—</div>
+          <div id="weekdayVE" class="text-xs opacity-60">—</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CUTE QUOTES -->
+  <section class="mx-auto mt-10 max-w-3xl px-6">
+    <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 text-center" style="font-family:'Dancing Script', cursive">
+      <p id="quote" class="text-xl">You + Me = ♡</p>
+    </div>
+  </section>
+
+  <!-- LOVE NOTE -->
+  <section class="mx-auto mt-12 max-w-3xl px-6">
+    <div class="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl backdrop-blur">
+      <div class="flex items-center gap-2"><div class="text-pink-300">✉️</div><h3 class="text-xl font-bold">Ek chhota sa love note 💌</h3></div>
+      <p class="mt-3 leading-relaxed opacity-90">
+        Hey Lola, har din phone pe hansi, chhoti chhoti baatein, aur woh goodnight texts — sab kuch special banata hai.
+        04 June 2025 ko jo milan shuru hua, uski har monthsary hum celebrate karenge. Distance sirf kilometers mein hota hai,
+        dil toh hamesha paas hote hain. ❤️ — Bhanu
+      </p>
+    </div>
+  </section>
+
+  <!-- PLAYLIST (links only) -->
+  <section class="mx-auto mt-12 max-w-3xl px-6 pb-24">
+    <div class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl backdrop-blur">
+      <div class="flex items-center gap-2"><div class="text-pink-300">🎵</div><h3 class="text-xl font-bold">Hamari Playlist</h3></div>
+      <ul class="mt-3 space-y-2">
+        <li class="flex items-center justify-between gap-3 rounded-xl bg-white/10 px-3 py-2 text-sm">
+          <span>♪ Our Song #1</span><a target="_blank" rel="noreferrer" href="https://open.spotify.com/" class="rounded-full bg-pink-500 px-3 py-1 font-medium text-white shadow hover:opacity-90">Play</a>
+        </li>
+        <li class="flex items-center justify-between gap-3 rounded-xl bg-white/10 px-3 py-2 text-sm">
+          <span>♪ Our Song #2</span><a target="_blank" rel="noreferrer" href="https://music.youtube.com/" class="rounded-full bg-pink-500 px-3 py-1 font-medium text-white shadow hover:opacity-90">Play</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="mx-auto max-w-5xl px-6 pb-10 text-center text-xs opacity-70">
+    Made with <span class="inline-flex items-center gap-1">💖 love</span> • Designed for Bhanu & Lola
+  </footer>
+
+<script>
+const MET_AT = new Date(Date.UTC(2025, 5, 4, 0, 0, 0)); // 04 June 2025 (UTC)
+document.getElementById('metDate').textContent = MET_AT.toLocaleDateString('en-GB', { day:'2-digit', month:'long', year:'numeric' });
+
+function isLeap(y){return (y%4===0 && y%100!==0) || (y%400===0)}
+function diffParts(from, to){
+  let d1 = new Date(from), d2 = new Date(to);
+  if(d2 < d1) [d1,d2] = [d2,d1];
+  let years = d2.getFullYear()-d1.getFullYear();
+  let months = d2.getMonth()-d1.getMonth();
+  let days = d2.getDate()-d1.getDate();
+  let hours = d2.getHours()-d1.getHours();
+  let minutes = d2.getMinutes()-d1.getMinutes();
+  let seconds = d2.getSeconds()-d1.getSeconds();
+  if(seconds<0){seconds+=60; minutes--}
+  if(minutes<0){minutes+=60; hours--}
+  if(hours<0){hours+=24; days--}
+  const monthLengths=[31,(isLeap(d2.getFullYear())?29:28),31,30,31,30,31,31,30,31,30,31];
+  if(days<0){ const pm=(d2.getMonth()-1+12)%12; days+=monthLengths[pm]; months-- }
+  if(months<0){ months+=12; years-- }
+  return {years,months,days,hours,minutes,seconds};
+}
+function nextMonthsary(start, now){
+  const s = new Date(start), n = new Date(now); const day = s.getDate();
+  let target = new Date(n.getFullYear(), n.getMonth(), day, 0,0,0);
+  if(target < n) target = new Date(n.getFullYear(), n.getMonth()+1, day, 0,0,0);
+  while(target.getDate() !== day){ target.setDate(target.getDate()-1); }
+  return target;
+}
+function fmtTz(date, tz){
+  const f = new Intl.DateTimeFormat('en-GB',{timeZone:tz, hour12:true, hour:'2-digit', minute:'2-digit', second:'2-digit', weekday:'short'}).format(date);
+  const [weekday, time] = f.split(', '); return {weekday, time};
+}
+function update(){
+  const now = new Date();
+  const t = diffParts(MET_AT, now);
+  ["years","months","days","hours","minutes","seconds"].forEach(k => {
+    document.getElementById(k).textContent = t[k];
+  });
+  const nx = nextMonthsary(MET_AT, now);
+  document.getElementById('nextDate').textContent = nx.toLocaleDateString('en-GB',{ day:'2-digit', month:'long', year:'numeric'});
+  const left = diffParts(now, nx);
+  document.getElementById('dLeft').textContent = left.days + left.months*30 + left.years*365;
+  document.getElementById('hLeft').textContent = left.hours;
+  document.getElementById('mLeft').textContent = left.minutes;
+
+  const i = fmtTz(now, 'Asia/Kolkata'); document.getElementById('timeIN').textContent = i.time; document.getElementById('weekdayIN').textContent = i.weekday;
+  const v = fmtTz(now, 'America/Caracas'); document.getElementById('timeVE').textContent = v.time; document.getElementById('weekdayVE').textContent = v.weekday;
+}
+setInterval(update, 1000); update();
+
+// Stars
+(function makeStars(){
+  const wrap = document.getElementById('stars');
+  for(let i=0;i<160;i++){ const s=document.createElement('span'); s.className='star'; s.style.left=Math.random()*100+'%'; s.style.top=Math.random()*100+'%'; s.style.setProperty('--dur',(2+Math.random()*3)+'s'); wrap.appendChild(s); }
+})();
+// Emojis
+(function makeEmojis(){
+  const wrap = document.getElementById('emojis'); const list = ['💖','💫','✨','💌','🌸','🧸','🍓','🎀'];
+  for(let i=0;i<18;i++){ const e=document.createElement('span'); e.className='emoji text-xl'; e.textContent=list[i%list.length]; e.style.left=Math.random()*100+'%'; e.style.top=Math.random()*100+'%'; e.style.animationDuration=(8+Math.random()*6)+'s'; wrap.appendChild(e); }
+})();
+// Hearts
+(function makeHearts(){
+  const wrap = document.getElementById('hearts');
+  for(let i=0;i<18;i++){ const h=document.createElement('div'); h.className='heart'; h.textContent='❤'; h.style.left=Math.random()*100+'%'; h.style.bottom='-40px'; h.style.fontSize=(14+Math.random()*20)+'px'; h.style.animationDuration=(8+Math.random()*8)+'s'; h.style.animationDelay=(Math.random()*5)+'s'; wrap.appendChild(h); }
+})();
+// Celebrate
+document.getElementById('celebrate').addEventListener('click', ()=>{
+  const wrap = document.getElementById('hearts');
+  for(let i=0;i<24;i++){ const h=document.createElement('div'); h.textContent='💖'; h.style.position='absolute'; h.style.left=(50+ (Math.random()*40-20))+'%'; h.style.top='20%'; h.style.fontSize=(16+Math.random()*18)+'px'; h.style.animation='floatUp 1.4s ease-out forwards'; wrap.appendChild(h); setTimeout(()=>wrap.removeChild(h), 1600); }
+});
+// Quotes
+(function quotes(){
+  const qs = ['You + Me = ♡','Across oceans, same moon.','I choose you, every day.','Tu hi toh ho meri smile ka reason ✨','Besitos hasta Caracas 💌'];
+  const p = document.getElementById('quote'); let i=0; setInterval(()=>{ i=(i+1)%qs.length; p.textContent=qs[i]; }, 3000);
+})();
+
+// Self tests (console)
+(function selfTests(){
+  const zero = diffParts(new Date(0), new Date(0));
+  console.assert(zero.years===0 && zero.months===0 && zero.days===0, 'diffParts zero failed');
+  const nx = nextMonthsary(new Date(2025,5,4), new Date(2025,5,5));
+  console.assert(nx.getMonth()===6 && nx.getDate()<=4, 'nextMonthsary after-day failed');
+  const nx2 = nextMonthsary(new Date(2025,5,4), new Date(2025,5,1));
+  console.assert(nx2.getMonth()===5 && nx2.getDate()===4, 'nextMonthsary before-day failed');
+})();
+</script>
+</body>
+</html>
