@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b1020" />
+  <meta name="theme-color" content="#2a0916" />
   <title>Bhanu ♥ Lola — Long Distance Love</title>
   <meta name="description" content="Starry-night kawaii long-distance love page for Bhanu & Lola." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;600;700&family=Baloo+2:wght@600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root { --pink:#ec4899; --indigo:#6366f1; }
@@ -21,7 +21,7 @@
       .heartbeat, .emoji, .heart, .shimmer::after{ animation: none !important }
     }
     /* Starfield */
-    .starfield::before,.starfield::after{ content:""; position:absolute; inset:0; background-image:radial-gradient(circle at 20% 20%, rgba(99,102,241,0.15), transparent 40%), radial-gradient(circle at 80% 60%, rgba(56,189,248,0.12), transparent 35%); pointer-events:none; }
+    .starfield::before,.starfield::after{ content:""; position:absolute; inset:0; background-image:radial-gradient(circle at 20% 20%, rgba(244, 114, 182, 0.18), transparent 42%), radial-gradient(circle at 80% 60%, rgba(217, 70, 239, 0.14), transparent 36%); pointer-events:none; }
     .star{position:absolute;width:2px;height:2px;background:#fff;border-radius:999px;opacity:.6;animation:twinkle var(--dur,3s) infinite ease-in-out}
     @keyframes twinkle{0%,100%{opacity:.2}50%{opacity:1}}
     /* Floating hearts */
@@ -45,18 +45,47 @@
     @media (max-width:480px){ :root{ --anim-scale:.9 } }
     .heart-icon{display:inline-block;vertical-align:-0.18em;margin:0 .2em;filter:drop-shadow(0 2px 10px rgba(236,72,153,.35));}
   .heart-icon svg{transform-origin:center;}
+  .heart-icon{display:inline-block;vertical-align:-0.18em;margin:0 .2em;filter:drop-shadow(0 2px 10px rgba(236,72,153,.35));}
+  .heart-icon svg{transform-origin:center;}
+  .badge-sticker{display:inline-flex;align-items:center;gap:.35rem;padding:.2rem .6rem;border-radius:999px;font-size:.73rem;font-weight:700;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(6px);box-shadow:0 6px 24px rgba(244,114,182,.22), inset 0 0 0 2px rgba(251,113,133,.1)}
+  /* Mobile kawaii boost */
+  @media (max-width:480px){
+    .emoji{font-size:1.6rem}
+    .heart{font-size:22px !important}
+    .heart-icon svg{width:48px}
+    .glow{box-shadow:0 0 0 6px rgba(244,114,182,.22), 0 14px 50px rgba(236,72,153,.32)}
+  }
+  /* kawaii candy UI */
+  h1, .kawaii{ font-family:'Baloo 2','Quicksand',system-ui; letter-spacing:.3px }
+  .candy-btn{position:relative;display:inline-flex;align-items:center;gap:.5rem;border-radius:999px;background:linear-gradient(90deg,#fb7185,#ec4899,#f472b6);padding:.6rem 1rem;font-weight:800;color:white;box-shadow:0 12px 40px rgba(244,114,182,.35)}
+  .candy-btn::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);transform:translateX(-100%);animation:shine 2.4s linear infinite}
+  .divider{height:14px;display:flex;align-items:center;gap:.5rem;justify-content:center;opacity:.85}
+  .divider:before,.divider:after{content:"";height:1px;width:36%;background:linear-gradient(90deg,rgba(255,255,255,.0),rgba(251,113,133,.6))}
+  .divider:after{background:linear-gradient(90deg,rgba(251,113,133,.6),rgba(255,255,255,.0))}
+  .blob{position:absolute;filter:blur(40px);opacity:.35;animation:blob 16s ease-in-out infinite;pointer-events:none}
+  .blob.b1{background:#fb7185;width:420px;height:420px;left:-120px;top:-60px}
+  .blob.b2{background:#f472b6;width:360px;height:360px;right:-80px;bottom:10%}
+  .blob.b3{background:#f0abfc;width:300px;height:300px;left:50%;top:35%;transform:translateX(-50%)}
+  @keyframes blob{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(12px,-18px) scale(1.05)}}
 </style>
   <!-- Perf hints for Spotify embed -->
   <link rel="preconnect" href="https://open.spotify.com" crossorigin>
   <link rel="dns-prefetch" href="https://open.spotify.com">
   <link rel="preconnect" href="https://i.scdn.co" crossorigin>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-indigo-950 via-slate-900 to-black text-slate-100 selection:bg-pink-300/40 selection:text-black relative overflow-x-hidden">
+<body class="min-h-screen bg-gradient-to-br from-rose-950 via-pink-900 to-rose-950 text-slate-100 selection:bg-pink-300/40 selection:text-black relative overflow-x-hidden">
   <!-- Background layers -->
   <div class="starfield pointer-events-none absolute inset-0 -z-10"></div>
   <div id="stars" class="pointer-events-none absolute inset-0 -z-10"></div>
+  <div class="blob b1 -z-10"></div>
+  <div class="blob b2 -z-10"></div>
+  <div class="blob b3 -z-10"></div>
   <div id="emojis" class="pointer-events-none absolute inset-0"></div>
   <div id="hearts" class="pointer-events-none absolute inset-0"></div>
+  <!-- kawaii soft vignette overlay -->
+  <div class="pointer-events-none absolute inset-0 -z-10 opacity-70 md:opacity-50"
+       style="background: radial-gradient(120vw 60vh at 15% 20%, rgba(244,114,182,.22), transparent 55%),
+                               radial-gradient(120vw 60vh at 85% 70%, rgba(251,113,133,.18), transparent 55%)"></div>
 
   <!-- HERO -->
   <header class="relative mx-auto max-w-5xl px-6 pt-20 text-center">
@@ -79,6 +108,11 @@
     <div class="mt-2 flex justify-center gap-2">
       <button id="lang-es" class="rounded-full bg-white/10 px-3 py-1 text-xs ring-1 ring-white/20 hover:bg-white/20">🇻🇪 Español</button>
       <button id="lang-hi" class="rounded-full bg-white/10 px-3 py-1 text-xs ring-1 ring-white/20 hover:bg-white/20">🇮🇳 Hinglish</button>
+    </div>
+    <!-- cute mobile-only stickers under toggle -->
+    <div class="mt-2 md:hidden flex justify-center gap-2">
+      <span class="badge-sticker">mi reina ✨</span>
+      <span class="badge-sticker">jaan 🧸</span>
     </div>
 
     <p id="tagline" class="mt-3 text-sm md:text-base opacity-80">—</p>
@@ -125,7 +159,7 @@
 
   <!-- CLOCKS -->
   <section class="mx-auto mt-12 max-w-5xl px-6">
-    <div id="longDistanceBadge" class="mb-3 inline-flex items-center gap-1 rounded-full border border-pink-300/60 bg-white/10 px-3 py-1 text-xs font-medium text-pink-200 shadow-sm backdrop-blur">✨ Long distance, short hearts</div>
+    <div id="longDistanceBadge" class="mb-3 inline-flex items-center gap-1 rounded-full border border-pink-300/60 bg-rose-400/10 px-3 py-1 text-xs font-extrabold text-rose-100 shadow-sm backdrop-blur">✨ Har km mein pyaar · Amorcito vibes</div>
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div class="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl backdrop-blur">
         <div class="mb-2 flex items-center justify-between">
@@ -177,12 +211,40 @@
       <div class="flex items-center gap-2"><div class="text-pink-300">🎵</div><h3 id="playlistTitle" class="text-xl font-bold">—</h3></div>
       <!-- Replace track ID below with your song; only ONE track shown -->
       <div class="space-y-3 mt-4">
-        <iframe loading="lazy" style="border-radius:12px" src="https://open.spotify.com/embed/track/199LDzwbUTc2wEroyRxhBM" width="100%" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>
+        <iframe loading="lazy" style="border-radius:12px" src="https://open.spotify.com/embed/track/5WXXXXYOURTRACKID" width="100%" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>
       </div>
     </div>
   </section>
 
-  <footer class="mx-auto max-w-5xl px-6 pb-10 text-center text-xs opacity-70">
+  <section class="mx-auto mt-10 max-w-3xl px-6">
+  <div class="divider">💞</div>
+</section>
+
+<!-- LOVE GOALS (checklist) -->
+<section class="mx-auto mt-8 max-w-3xl px-6">
+  <div class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl backdrop-blur">
+    <div class="flex items-center gap-2"><div class="text-rose-300">🧸</div><h3 class="text-xl font-bold kawaii">Our Cute Goals</h3></div>
+    <ul id="goals" class="mt-3 space-y-2 text-sm"></ul>
+    <div class="mt-3 flex gap-2">
+      <input id="goalInput" class="flex-1 rounded-xl bg-white/10 px-3 py-2 text-sm outline-none ring-1 ring-white/10 focus:ring-2 focus:ring-rose-300/60" placeholder="Add a tiny promise… (e.g., Sunday video call)"/>
+      <button id="addGoal" class="candy-btn">＋</button>
+    </div>
+  </div>
+</section>
+
+<!-- WISH JAR -->
+<section class="mx-auto mt-8 max-w-3xl px-6 pb-24">
+  <div class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl backdrop-blur">
+    <div class="flex items-center gap-2"><div class="text-rose-300">✨</div><h3 class="text-xl font-bold kawaii">Wish Jar</h3></div>
+    <div id="wishes" class="mt-3 flex flex-wrap gap-2"></div>
+    <div class="mt-3 flex gap-2">
+      <input id="wishInput" class="flex-1 rounded-xl bg-white/10 px-3 py-2 text-sm outline-none ring-1 ring-white/10 focus:ring-2 focus:ring-rose-300/60" placeholder="Type a wish for later…"/>
+      <button id="addWish" class="candy-btn">💖 Add</button>
+    </div>
+  </div>
+</section>
+
+<footer class="mx-auto max-w-5xl px-6 pb-10 text-center text-xs opacity-70">
     Made with <span class="inline-flex items-center gap-1">💖 love</span> • Designed for Bhanu & Lola
   </footer>
 
@@ -350,6 +412,47 @@ if (celebrateBtn) celebrateBtn.addEventListener('click', ()=>{
     setTimeout(()=>wrap.removeChild(h),1600);
   }
 });
+
+/* Tap/click heart burst for extra kawaii on phones */
+(function tapBurst(){
+  const wrap = document.body;
+  const make = (x,y)=>{
+    const n = 10; // lightweight
+    for(let i=0;i<n;i++){
+      const s = document.createElement('span');
+      s.textContent = i%2? '💖':'🌸';
+      s.style.position='fixed'; s.style.left=x+'px'; s.style.top=y+'px';
+      s.style.pointerEvents='none'; s.style.zIndex=50; s.style.transition='transform 800ms ease, opacity 800ms ease';
+      s.style.transform=`translate(${(Math.random()*60-30)}px, ${(Math.random()*-80-20)}px) scale(${1+Math.random()*0.3})`;
+      s.style.opacity='0';
+      wrap.appendChild(s);
+      requestAnimationFrame(()=>{ s.style.opacity='1'; s.style.transform=`translate(${(Math.random()*120-60)}px, ${(Math.random()*-140-60)}px) scale(${1.2+Math.random()*0.4})`; s.style.opacity='0';});
+      setTimeout(()=>wrap.removeChild(s), 850);
+    }
+  };
+  const handler = (e)=>{ const t = e.touches? e.touches[0]: e; make(t.clientX, t.clientY); };
+  document.addEventListener('click', handler);
+  document.addEventListener('touchstart', handler, {passive:true});
+})();
+
+/* Celebrate burst */
+function burstAt(x,y){
+  const n = 18; for(let i=0;i<n;i++){ const h=document.createElement('div'); h.textContent= i%2? '💖':'🌸'; h.style.position='fixed'; h.style.left=x+'px'; h.style.top=y+'px'; h.style.fontSize=(16+Math.random()*10)+'px'; h.style.pointerEvents='none'; h.style.animation='floatUp 1.4s ease-out forwards'; document.body.appendChild(h); setTimeout(()=>h.remove(),1400); }
+}
+['celebrate','celeSmall'].forEach(id=>{ const b=document.getElementById(id); if(b){ b.addEventListener('click', (e)=>{ const r = b.getBoundingClientRect(); burstAt(r.left+r.width/2, r.top); }); }});
+
+/* Goals + Wish Jar (localStorage) */
+(function uxLists(){
+  const goalsEl = document.getElementById('goals'); const goalInput = document.getElementById('goalInput'); const addGoal = document.getElementById('addGoal');
+  const wishesEl = document.getElementById('wishes'); const wishInput = document.getElementById('wishInput'); const addWish = document.getElementById('addWish');
+  if(!goalsEl||!wishesEl) return;
+  let goals = JSON.parse(localStorage.getItem('love_goals')||'[]'); let wishes = JSON.parse(localStorage.getItem('wish_jar')||'[]');
+  function renderGoals(){ goalsEl.innerHTML=''; goals.forEach((g,i)=>{ const li=document.createElement('li'); li.className='flex items-center gap-2 rounded-xl bg-white/8 px-3 py-2 ring-1 ring-white/10'; const cb=document.createElement('input'); cb.type='checkbox'; cb.checked=!!g.done; cb.className='accent-rose-400'; const span=document.createElement('span'); span.textContent=g.text; if(g.done) span.className='line-through opacity-60'; cb.onchange=()=>{goals[i].done=cb.checked; localStorage.setItem('love_goals',JSON.stringify(goals)); renderGoals();}; const del=document.createElement('button'); del.textContent='✖'; del.className='ml-auto text-xs opacity-70 hover:opacity-100'; del.onclick=()=>{goals.splice(i,1); localStorage.setItem('love_goals',JSON.stringify(goals)); renderGoals();}; li.append(cb,span,del); goalsEl.appendChild(li); }); }
+  function renderWishes(){ wishesEl.innerHTML=''; wishes.forEach((w,i)=>{ const b=document.createElement('span'); b.textContent=w; b.className='select-none rounded-full bg-rose-400/15 px-3 py-1 text-xs ring-1 ring-rose-300/40'; const x=document.createElement('button'); x.textContent='×'; x.className='ml-1 text-[10px] opacity-70'; const wrap=document.createElement('span'); x.onclick=()=>{wishes.splice(i,1); localStorage.setItem('wish_jar',JSON.stringify(wishes)); renderWishes();}; wrap.append(b,x); wrap.className='inline-flex items-center'; wishesEl.appendChild(wrap); }); }
+  renderGoals(); renderWishes();
+  addGoal&&addGoal.addEventListener('click',()=>{ const t=(goalInput.value||'').trim(); if(!t) return; goals.push({text:t,done:false}); localStorage.setItem('love_goals',JSON.stringify(goals)); goalInput.value=''; renderGoals(); });
+  addWish&&addWish.addEventListener('click',()=>{ const t=(wishInput.value||'').trim(); if(!t) return; wishes.push(t); localStorage.setItem('wish_jar',JSON.stringify(wishes)); wishInput.value=''; renderWishes(); });
+})();
 
 /* Quotes rotator */
 (function quotes(){
