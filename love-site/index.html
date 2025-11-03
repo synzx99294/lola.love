@@ -13,13 +13,7 @@
     :root { --pink:#ec4899; --indigo:#6366f1; }
     body { font-family:'Quicksand',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif; }
     /* Starfield */
-    .starfield::before,.starfield::after{
-      content:""; position:absolute; inset:0;
-      background-image:
-        radial-gradient(circle at 20% 20%, rgba(99,102,241,0.15), transparent 40%),
-        radial-gradient(circle at 80% 60%, rgba(56,189,248,0.12), transparent 35%);
-      pointer-events:none;
-    }
+    .starfield::before,.starfield::after{ content:""; position:absolute; inset:0; background-image:radial-gradient(circle at 20% 20%, rgba(99,102,241,0.15), transparent 40%), radial-gradient(circle at 80% 60%, rgba(56,189,248,0.12), transparent 35%); pointer-events:none; }
     .star{position:absolute;width:2px;height:2px;background:#fff;border-radius:999px;opacity:.6;animation:twinkle var(--dur,3s) infinite ease-in-out}
     @keyframes twinkle{0%,100%{opacity:.2}50%{opacity:1}}
     /* Floating hearts */
@@ -29,12 +23,15 @@
     .emoji{position:absolute;animation:bobbing ease-in-out infinite;opacity:.9}
     @keyframes bobbing{0%{transform:translateY(6px)}50%{transform:translateY(-6px)}100%{transform:translateY(6px)}}
     /* Cute button shimmer */
-    .shimmer::after{
-      content:""; position:absolute; inset:0; transform:translateX(-100%);
-      background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
-      animation:shine 2s linear infinite; border-radius:inherit;
-    }
+    .shimmer::after{ content:""; position:absolute; inset:0; transform:translateX(-100%); background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent); animation:shine 2s linear infinite; border-radius:inherit; }
     @keyframes shine{to{transform:translateX(100%)}}
+    /* Lovey dovey upgrades */
+    .glow{ box-shadow:0 0 0 4px rgba(236,72,153,.15), 0 10px 40px rgba(236,72,153,.25); }
+    .heartbeat{ animation:heartbeat 1.6s ease-in-out infinite; }
+    @keyframes heartbeat{0%{transform:scale(1)}30%{transform:scale(1.06)}40%{transform:scale(1)}70%{transform:scale(1.06)}100%{transform:scale(1)}}
+    .love-gradient{ background:linear-gradient(90deg,#fbcfe8,#f472b6,#a78bfa); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    /* Cursor heart (fallback to pointer if blocked) */
+    body{ cursor:pointer; }
   </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-indigo-950 via-slate-900 to-black text-slate-100 selection:bg-pink-300/40 selection:text-black relative overflow-x-hidden">
@@ -46,7 +43,7 @@
 
   <!-- HERO -->
   <header class="relative mx-auto max-w-5xl px-6 pt-20 text-center">
-    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight [text-wrap:balance]">
+    <h1 class="love-gradient text-4xl md:text-6xl font-extrabold leading-tight [text-wrap:balance] heartbeat">
       Bhanu <span class="align-middle">💖</span> Lola
     </h1>
 
@@ -60,7 +57,7 @@
 
     <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
       <!-- TIME SHARED -->
-      <div class="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl backdrop-blur">
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl backdrop-blur glow">
         <div class="mb-3 flex items-center gap-2">
           <div class="grid h-10 w-10 place-items-center rounded-2xl bg-pink-500/20 text-pink-200">🕒</div>
           <h2 id="timeSharedTitle" class="text-lg font-bold">—</h2>
@@ -82,7 +79,7 @@
       </div>
 
       <!-- NEXT MONTHSARY -->
-      <div class="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl backdrop-blur">
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-xl backdrop-blur glow">
         <div class="mb-3 flex items-center gap-2">
           <div class="grid h-10 w-10 place-items-center rounded-2xl bg-pink-500/20 text-pink-200">📅</div>
           <h2 id="nextMonthsaryTitle" class="text-lg font-bold">—</h2>
@@ -134,54 +131,26 @@
   <!-- CUTE QUOTES -->
   <section class="mx-auto mt-10 max-w-3xl px-6">
     <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 text-center" style="font-family:'Dancing Script',cursive">
-      <p id="quote" class="text-xl">You + Me = ♡</p>
+      <p id="quote" class="text-xl">Tú + Yo = ♡</p>
     </div>
   </section>
 
-  <!-- LOVE NOTE -->
+  <!-- LOVE NOTE (sweeter) -->
   <section class="mx-auto mt-12 max-w-3xl px-6">
-    <div class="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl backdrop-blur">
+    <div class="rounded-3xl border border-white/10 bg-white/10 p-6 shadow-xl backdrop-blur glow">
       <div class="flex items-center gap-2"><div class="text-pink-300">✉️</div><h3 id="loveNoteTitle" class="text-xl font-bold">—</h3></div>
       <p id="loveNoteBody" class="mt-3 leading-relaxed opacity-90">—</p>
     </div>
   </section>
 
-  <!-- PLAYLIST (Embeds + links) -->
+  <!-- MUSIC: single song embed only -->
   <section class="mx-auto mt-12 max-w-3xl px-6 pb-24">
     <div class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl backdrop-blur">
       <div class="flex items-center gap-2"><div class="text-pink-300">🎵</div><h3 id="playlistTitle" class="text-xl font-bold">—</h3></div>
-
-      <!-- SPOTIFY EMBEDS: replace IDs/URLs below -->
+      <!-- Replace track ID below with your song; only ONE track shown -->
       <div class="space-y-3 mt-4">
-        <!-- Track -->
-        <iframe style="border-radius:12px"
-          src="https://open.spotify.com/embed/track/5WXXXXYOURTRACKID"
-          width="100%" height="80" frameborder="0"
-          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>
-
-        <!-- Playlist -->
-        <iframe style="border-radius:12px"
-          src="https://open.spotify.com/embed/playlist/37i9dQZF1DXYOURPLAYLISTID"
-          width="100%" height="352" frameborder="0"
-          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5WXXXXYOURTRACKID" width="100%" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>
       </div>
-
-      <!-- YOUTUBE (optional) -->
-      <!--
-      <div class="mt-4 aspect-video">
-        <iframe class="w-full h-full rounded-2xl"
-          src="https://www.youtube.com/embed/VIDEO_ID"
-          title="YouTube player" frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      -->
-
-      <!-- LOCAL MP3 (optional) -->
-      <!--
-      <audio controls class="w-full mt-3 rounded-xl">
-        <source src="music/song.mp3" type="audio/mpeg" />
-      </audio>
-      -->
     </div>
   </section>
 
@@ -213,7 +182,7 @@ const L10N = {
     longDistance: "✨ Lejos en km, cerquita del cora",
     loveNoteTitle: "Una notita de amor 💌",
     loveNoteBody: "Hola Lola, cada llamadita, cada risita y esos mensajitos de buenas noches hacen todo especial. Desde el 04 de junio de 2025 celebramos cada mesiversario. La distancia solo está en el mapa; nuestros corazones siempre junticos. ❤️ — Bhanu",
-    playlist: "Nuestra Playlist",
+    playlist: "Nuestra canción",
     labels: { years:"Años", months:"Meses", days:"Días", hours:"Horas", minutes:"Min", seconds:"Seg" },
     quotes: ["Tú + Yo = ♡","A través del mar, la misma luna.","Te elijo todos los días.","Eres mi sonrisa, mi amorcito ✨","Besitos hasta Caracas 💌"]
   }
@@ -221,7 +190,6 @@ const L10N = {
 let CURRENT_LANG = 'es'; // default Spanish for Lola
 
 /* ====== Helpers ====== */
-document.getElementById('metDate'); // just to ensure DOM created
 function isLeap(y){return (y%4===0 && y%100!==0) || (y%400===0)}
 function diffParts(from, to){
   let d1 = new Date(from), d2 = new Date(to);
@@ -240,6 +208,14 @@ function diffParts(from, to){
   if(months<0){ months+=12; years-- }
   return {years,months,days,hours,minutes,seconds};
 }
+// Robust time formatting using formatToParts (no split problems)
+function fmtTz(date, tz){
+  const parts = new Intl.DateTimeFormat('en-GB', { timeZone: tz, hour12: true, hour:'2-digit', minute:'2-digit', second:'2-digit', weekday:'short' }).formatToParts(date);
+  const get = t => parts.find(p => p.type === t)?.value || '';
+  const weekday = get('weekday');
+  const time = `${get('hour')}:${get('minute')}:${get('second')} ${get('dayPeriod')}`.trim();
+  return {weekday, time};
+}
 function nextMonthsary(start, now){
   const s = new Date(start), n = new Date(now); const day = s.getDate();
   let target = new Date(n.getFullYear(), n.getMonth(), day, 0,0,0);
@@ -247,57 +223,49 @@ function nextMonthsary(start, now){
   while(target.getDate() !== day){ target.setDate(target.getDate()-1); }
   return target;
 }
-function fmtTz(date, tz){
-  const f = new Intl.DateTimeFormat('en-GB',{timeZone:tz, hour12:true, hour:'2-digit', minute:'2-digit', second:'2-digit', weekday:'short'}).format(date);
-  const [weekday, time] = f.split(', '); return {weekday, time};
-}
 
 /* ====== Language Wiring ====== */
 function setLanguage(lang){
   CURRENT_LANG = lang;
   const t = L10N[lang];
   const dateStr = MET_AT.toLocaleDateString(lang==='es'?'es-VE':'en-GB',{day:'2-digit',month:'long',year:'numeric'});
-
   document.getElementById('tagline').textContent = t.tagline.replace('{date}', dateStr);
   document.getElementById('timeSharedTitle').textContent = t.timeShared;
   document.getElementById('nextMonthsaryTitle').textContent = t.nextMonthsary;
   document.getElementById('longDistanceBadge').textContent = t.longDistance;
-
   document.getElementById('loveNoteTitle').textContent = t.loveNoteTitle;
   document.getElementById('loveNoteBody').textContent  = t.loveNoteBody;
   document.getElementById('playlistTitle').textContent = t.playlist;
-
   document.getElementById('yearsLabel').textContent   = t.labels.years;
   document.getElementById('monthsLabel').textContent  = t.labels.months;
   document.getElementById('daysLabel').textContent    = t.labels.days;
   document.getElementById('hoursLabel').textContent   = t.labels.hours;
   document.getElementById('minutesLabel').textContent = t.labels.minutes;
   document.getElementById('secondsLabel').textContent = t.labels.seconds;
-
   window.__QUOTES__ = t.quotes; // for rotator
 }
+
 document.getElementById('lang-hi').addEventListener('click', ()=> setLanguage('hi'));
 document.getElementById('lang-es').addEventListener('click', ()=> setLanguage('es'));
 
 /* ====== Live Counters & Clocks ====== */
+function safeSet(id, val){ const el = document.getElementById(id); if (el) el.textContent = String(val); }
 function update(){
   const now = new Date();
   const t = diffParts(MET_AT, now);
-  ["years","months","days","hours","minutes","seconds"].forEach(k => {
-    document.getElementById(k).textContent = t[k];
-  });
-
+  safeSet('years', t.years); safeSet('months', t.months); safeSet('days', t.days);
+  safeSet('hours', t.hours); safeSet('minutes', t.minutes); safeSet('seconds', t.seconds);
   const nx = nextMonthsary(MET_AT, now);
-  document.getElementById('nextDate').textContent =
-    nx.toLocaleDateString(CURRENT_LANG==='es'?'es-VE':'en-GB',{day:'2-digit',month:'long',year:'numeric'});
+  const fmt = (CURRENT_LANG==='es'?'es-VE':'en-GB');
+  safeSet('nextDate', nx.toLocaleDateString(fmt,{day:'2-digit',month:'long',year:'numeric'}));
   const left = diffParts(now, nx);
-  document.getElementById('dLeft').textContent = left.days + left.months*30 + left.years*365;
-  document.getElementById('hLeft').textContent = left.hours;
-  document.getElementById('mLeft').textContent = left.minutes;
-
-  const i = fmtTz(now, 'Asia/Kolkata');    document.getElementById('timeIN').textContent = i.time;    document.getElementById('weekdayIN').textContent = i.weekday;
-  const v = fmtTz(now, 'America/Caracas'); document.getElementById('timeVE').textContent = v.time;    document.getElementById('weekdayVE').textContent = v.weekday;
+  safeSet('dLeft', left.days + left.months*30 + left.years*365);
+  safeSet('hLeft', left.hours); safeSet('mLeft', left.minutes);
+  const i = fmtTz(now, 'Asia/Kolkata'); safeSet('timeIN', i.time); safeSet('weekdayIN', i.weekday);
+  const v = fmtTz(now, 'America/Caracas'); safeSet('timeVE', v.time); safeSet('weekdayVE', v.weekday);
 }
+if (window.__intervalFix) clearInterval(window.__intervalFix);
+setLanguage('es'); // default
 setInterval(update, 1000); update();
 
 /* ====== Background: Stars / Emojis / Hearts (mobile-optimized) ====== */
@@ -307,8 +275,7 @@ setInterval(update, 1000); update();
   for(let i=0;i<COUNT;i++){
     const s=document.createElement('span'); s.className='star';
     s.style.left=Math.random()*100+'%'; s.style.top=Math.random()*100+'%';
-    s.style.setProperty('--dur',(2+Math.random()*3)+'s');
-    wrap.appendChild(s);
+    s.style.setProperty('--dur',(2+Math.random()*3)+'s'); wrap.appendChild(s);
   }
 })();
 (function makeEmojis(){
@@ -316,11 +283,9 @@ setInterval(update, 1000); update();
   const list = ['💖','💫','✨','💌','🌸','🧸','🍓','🎀'];
   const COUNT = window.innerWidth < 480 ? 10 : 18;
   for(let i=0;i<COUNT;i++){
-    const e=document.createElement('span');
-    e.className='emoji text-xl'; e.textContent=list[i%list.length];
+    const e=document.createElement('span'); e.className='emoji text-xl'; e.textContent=list[i%list.length];
     e.style.left=Math.random()*100+'%'; e.style.top=Math.random()*100+'%';
-    e.style.animationDuration=(8+Math.random()*6)+'s';
-    wrap.appendChild(e);
+    e.style.animationDuration=(8+Math.random()*6)+'s'; wrap.appendChild(e);
   }
 })();
 (function makeHearts(){
@@ -331,37 +296,30 @@ setInterval(update, 1000); update();
     h.style.left=Math.random()*100+'%'; h.style.bottom='-40px';
     h.style.fontSize=(14+Math.random()*20)+'px';
     h.style.animationDuration=(8+Math.random()*8)+'s';
-    h.style.animationDelay=(Math.random()*5)+'s';
-    wrap.appendChild(h);
+    h.style.animationDelay=(Math.random()*5)+'s'; wrap.appendChild(h);
   }
 })();
 
 /* Celebrate burst */
-document.getElementById('celebrate').addEventListener('click', ()=>{
+const celebrateBtn = document.getElementById('celebrate');
+if (celebrateBtn) celebrateBtn.addEventListener('click', ()=>{
   const wrap = document.getElementById('hearts');
   const burst = window.innerWidth < 480 ? 16 : 24;
   for(let i=0;i<burst;i++){
     const h=document.createElement('div'); h.textContent='💖';
-    h.style.position='absolute';
-    h.style.left=(50+(Math.random()*40-20))+'%';
+    h.style.position='absolute'; h.style.left=(50+(Math.random()*40-20))+'%';
     h.style.top='20%'; h.style.fontSize=(16+Math.random()*18)+'px';
-    h.style.animation='floatUp 1.4s ease-out forwards';
-    wrap.appendChild(h); setTimeout(()=>wrap.removeChild(h),1600);
+    h.style.animation='floatUp 1.4s ease-out forwards'; wrap.appendChild(h);
+    setTimeout(()=>wrap.removeChild(h),1600);
   }
 });
 
-/* Quotes (use L10N) */
+/* Quotes rotator */
 (function quotes(){
   window.__QUOTES__ = L10N[CURRENT_LANG].quotes;
   const p = document.getElementById('quote'); let i=0;
-  setInterval(()=>{
-    const arr = window.__QUOTES__ || L10N[CURRENT_LANG].quotes;
-    i=(i+1)%arr.length; p.textContent=arr[i];
-  }, 3000);
+  setInterval(()=>{ const arr = window.__QUOTES__ || L10N[CURRENT_LANG].quotes; i=(i+1)%arr.length; p.textContent=arr[i]; }, 3000);
 })();
-
-/* Initialize default language (Spanish for Lola) */
-setLanguage('es');
 
 /* ====== Self-tests (console only) ====== */
 (function selfTests(){
