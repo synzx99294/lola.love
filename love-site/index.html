@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1020" />
   <title>Bhanu ♥ Lola — Long Distance Love</title>
   <meta name="description" content="Starry-night kawaii long-distance love page for Bhanu & Lola." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,6 +13,13 @@
   <style>
     :root { --pink:#ec4899; --indigo:#6366f1; }
     body { font-family:'Quicksand',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif; }
+    /* Better typography on small screens */
+    h1{ letter-spacing:0.2px }
+    @media (max-width:480px){ h1{ font-size:2.1rem } }
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .heartbeat, .emoji, .heart, .shimmer::after{ animation: none !important }
+    }
     /* Starfield */
     .starfield::before,.starfield::after{ content:""; position:absolute; inset:0; background-image:radial-gradient(circle at 20% 20%, rgba(99,102,241,0.15), transparent 40%), radial-gradient(circle at 80% 60%, rgba(56,189,248,0.12), transparent 35%); pointer-events:none; }
     .star{position:absolute;width:2px;height:2px;background:#fff;border-radius:999px;opacity:.6;animation:twinkle var(--dur,3s) infinite ease-in-out}
@@ -32,7 +40,16 @@
     .love-gradient{ background:linear-gradient(90deg,#fbcfe8,#f472b6,#a78bfa); -webkit-background-clip:text; background-clip:text; color:transparent; }
     /* Cursor heart (fallback to pointer if blocked) */
     body{ cursor:pointer; }
-  </style>
+    /* Smaller CPU when not visible */
+    :root{ --anim-scale:1 }
+    @media (max-width:480px){ :root{ --anim-scale:.9 } }
+    .heart-icon{display:inline-block;vertical-align:-0.18em;margin:0 .2em;filter:drop-shadow(0 2px 10px rgba(236,72,153,.35));}
+  .heart-icon svg{transform-origin:center;}
+</style>
+  <!-- Perf hints for Spotify embed -->
+  <link rel="preconnect" href="https://open.spotify.com" crossorigin>
+  <link rel="dns-prefetch" href="https://open.spotify.com">
+  <link rel="preconnect" href="https://i.scdn.co" crossorigin>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-indigo-950 via-slate-900 to-black text-slate-100 selection:bg-pink-300/40 selection:text-black relative overflow-x-hidden">
   <!-- Background layers -->
@@ -43,8 +60,19 @@
 
   <!-- HERO -->
   <header class="relative mx-auto max-w-5xl px-6 pt-20 text-center">
-    <h1 class="love-gradient text-4xl md:text-6xl font-extrabold leading-tight [text-wrap:balance] heartbeat">
-      Bhanu <span class="align-middle">💖</span> Lola
+    <h1 class="love-gradient text-4xl md:text-6xl font-extrabold leading-tight [text-wrap:balance] heartbeat will-change-transform" text-4xl md:text-6xl font-extrabold leading-tight [text-wrap:balance] heartbeat">
+      Bhanu <span class="heart-icon" aria-hidden>
+        <svg viewBox="0 0 64 58" xmlns="http://www.w3.org/2000/svg" class="w-[clamp(28px,4vw,44px)] h-auto">
+          <defs>
+            <linearGradient id="gHeartCute" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#fbcfe8"/>
+              <stop offset="55%" stop-color="#f472b6"/>
+              <stop offset="100%" stop-color="#fb7185"/>
+            </linearGradient>
+          </defs>
+          <path d="M32 56s-8.6-7.5-14.7-13.6C9.2 34.3 4 29.2 4 22.1 4 13.6 11 8 18.5 8c4.6 0 8.2 2.2 10.1 5.6C30.6 10.2 34.2 8 38.8 8 46.3 8 53.3 13.6 53.3 22.1c0 7.1-5.2 12.2-12.9 20.3C40.3 45.7 32 56 32 56z" fill="url(#gHeartCute)" stroke="rgba(255,255,255,.6)" stroke-width="1"/>
+        </svg>
+      </span> Lola
     </h1>
 
     <!-- Language toggle -->
@@ -149,7 +177,7 @@
       <div class="flex items-center gap-2"><div class="text-pink-300">🎵</div><h3 id="playlistTitle" class="text-xl font-bold">—</h3></div>
       <!-- Replace track ID below with your song; only ONE track shown -->
       <div class="space-y-3 mt-4">
-        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5WXXXXYOURTRACKID" width="100%" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>
+        <iframe loading="lazy" style="border-radius:12px" src="https://open.spotify.com/embed/track/5WXXXXYOURTRACKID" width="100%" height="80" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>
       </div>
     </div>
   </section>
@@ -266,12 +294,21 @@ function update(){
 }
 if (window.__intervalFix) clearInterval(window.__intervalFix);
 setLanguage('es'); // default
-setInterval(update, 1000); update();
+// accurate 1s ticker that pauses in background
+(function startTicker(){
+  let last = performance.now();
+  function tick(now){
+    if (document.hidden) { last = now; requestAnimationFrame(tick); return; }
+    if (now - last >= 1000) { update(); last = now; }
+    requestAnimationFrame(tick);
+  }
+  update(); requestAnimationFrame(tick);
+})();
 
 /* ====== Background: Stars / Emojis / Hearts (mobile-optimized) ====== */
 (function makeStars(){
   const wrap = document.getElementById('stars');
-  const COUNT = window.innerWidth < 480 ? 100 : 160;
+  const COUNT = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : (window.innerWidth < 480 ? 90 : 150);
   for(let i=0;i<COUNT;i++){
     const s=document.createElement('span'); s.className='star';
     s.style.left=Math.random()*100+'%'; s.style.top=Math.random()*100+'%';
@@ -281,7 +318,7 @@ setInterval(update, 1000); update();
 (function makeEmojis(){
   const wrap = document.getElementById('emojis');
   const list = ['💖','💫','✨','💌','🌸','🧸','🍓','🎀'];
-  const COUNT = window.innerWidth < 480 ? 10 : 18;
+  const COUNT = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : (window.innerWidth < 480 ? 10 : 18);
   for(let i=0;i<COUNT;i++){
     const e=document.createElement('span'); e.className='emoji text-xl'; e.textContent=list[i%list.length];
     e.style.left=Math.random()*100+'%'; e.style.top=Math.random()*100+'%';
@@ -290,7 +327,7 @@ setInterval(update, 1000); update();
 })();
 (function makeHearts(){
   const wrap = document.getElementById('hearts');
-  const COUNT = window.innerWidth < 480 ? 10 : 18;
+  const COUNT = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : (window.innerWidth < 480 ? 10 : 18);
   for(let i=0;i<COUNT;i++){
     const h=document.createElement('div'); h.className='heart'; h.textContent='❤';
     h.style.left=Math.random()*100+'%'; h.style.bottom='-40px';
